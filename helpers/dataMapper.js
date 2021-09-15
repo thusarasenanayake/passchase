@@ -1,7 +1,20 @@
 const sqlite = require('sqlite3');
+const path = require('path');
 
-const db = new sqlite.Database('passwords.db', (err) => {
-	if (err) throw err;
+// database initialization
+const databaseLocation = path.join(__dirname, '../', 'user/', 'passwords.db');
+const db = new sqlite.Database(databaseLocation, (err) => {
+	if (err) console.log(err);
+});
+const sql =
+	'CREATE TABLE IF NOT EXISTS records(id INTEGER UNIQUE,service TEXT,userName TEXT,email TEXT,password TEXT,phone TEXT,otherDetails TEXT,date TEXT)';
+
+db.serialize(() => {
+	db.run(sql, (err) => {
+		if (err) {
+			console.log(err);
+		}
+	});
 });
 
 exports.listRecords = () => {
@@ -25,6 +38,7 @@ exports.listRecords = () => {
 		});
 	});
 };
+
 exports.searchRecord = (term) => {
 	return new Promise((resolve, reject) => {
 		const sql = `SELECT * FROM records WHERE "userName" LIKE ? OR "service" LIKE ? OR "id" LIKE ?`;
@@ -73,25 +87,34 @@ exports.addRecord = (data) => {
 	});
 };
 
-// exports.listParagraph = (id) => {
-// 	return new Promise((resolve, reject) => {
-// 		const sql = 'SELECT * FROM paragraphs WHERE id=?';
-// 		console.log(sql);
-// 		db.get(sql, [id], (err, row) => {
-// 			if (err) reject(err);
+exports.listOneRecord = (id) => {
+	return new Promise((resolve, reject) => {
+		const sql = 'SELECT * FROM records WHERE id=?';
+		db.get(sql, [id], (err, row) => {
+			if (err) reject(err);
 
-// 			if (row) {
-// 				resolve({
-// 					id: row.id,
-// 					title: row.title,
-// 					content: row.content.split('\r\n'),
-// 				});
-// 			} else {
-// 				resolve({});
-// 			}
-// 		});
-// 	});
-// };
+			if (row) {
+				resolve({
+					id: row.id,
+				});
+			} else {
+				resolve(null);
+			}
+		});
+	});
+};
+exports.updateRecord = (field, value, id) => {
+	return new Promise((resolve, reject) => {
+		const sql = () => `UPDATE records SET ${field} = ? WHERE id=?`;
+		db.run(sql(), [value, id], (err) => {
+			if (err) {
+				reject(err);
+				return;
+			}
+			resolve(null);
+		});
+	});
+};
 
 exports.deleteRecord = (id) => {
 	return new Promise((resolve, reject) => {
@@ -105,16 +128,3 @@ exports.deleteRecord = (id) => {
 		});
 	});
 };
-// exports.updateParagraph = (id, updatedPost) => {
-// 	return new Promise((resolve, reject) => {
-// 		const sql = 'UPDATE paragraphs SET id=?, title=?, content=? WHERE id=?';
-// 		db.run(sql, [id, updatedPost.title, updatedPost.content, id], (err) => {
-// 			if (err) {
-// 				reject(err);
-// 				console.log(err);
-// 				return;
-// 			}
-// 			resolve(id);
-// 		});
-// 	});
-// };
