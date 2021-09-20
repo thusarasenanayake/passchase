@@ -31,7 +31,9 @@ exports.addRecordQuestions = [
 		message: 'Confirm your password',
 		validate: (input, answers) => {
 			const message =
-				answers.password === input ? true : 'Password do not match';
+				answers.password === input
+					? true
+					: 'Password do not match, Please try again';
 			return message;
 		},
 	},
