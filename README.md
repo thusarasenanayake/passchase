@@ -1,10 +1,3 @@
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
-
 <br />
 <p align="center">
 
@@ -50,16 +43,23 @@
 
 ## About The Project
 
-This Command-line interface program
+This command line tool can be used for store, view , delete and update passwords for different services. Database encyption will be added soon.
 
-[![Tooltip][product-screenshot-1]][product-url]
+<p align="center">
+
+![screenshot][product-screenshot-1]
+
+</p>
+
+A list of commonly used resources that I find helpful are listed in the acknowledgements.
 
 ### Built With
 
-- []()
-- []()
-- []()
-
+- chalk
+- chalk-table
+- commander
+- inquirer
+- sqlite3
 <!-- GETTING STARTED -->
 
 ## Getting Started
@@ -67,8 +67,6 @@ This Command-line interface program
 To get a local copy up and running follow these simple steps.
 
 ### Prerequisites
-
-This is an example of how to list things you need to use the software and how to install them.
 
 - npm
   ```sh
@@ -85,14 +83,34 @@ This is an example of how to list things you need to use the software and how to
    ```sh
    npm install
    ```
+3. Create a symlink in the global folder to use passchase globally
+   ```sh
+   npm link
+   ```
 
 <!-- USAGE EXAMPLES -->
 
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+to display help
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+    passchase [help | --help | -h] [command]
+
+to add a record
+
+    passchase add
+
+to delete a record
+
+    passchase delete <id>
+
+to update a record
+
+    passchase update <id> < service | userName | email | password | phone | otherDetails | date > <value>
+
+to view a record
+
+    passchase show < id | all >
 
 <!-- ROADMAP -->
 
@@ -122,17 +140,14 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 ## Contact
 
-Your Name - [@twitter_handle][issues-url] - email
-
 Project Link: [https://github.com/thusarasenanayake/passchase](https://github.com/thusarasenanayake/passchase)
 
 <!-- ACKNOWLEDGEMENTS -->
 
 ## Acknowledgements
 
-- []()
-- []()
-- []()
+- [README Template](https://github.com/othneildrew/Best-README-Template)
+- [Choose an Open Source License](https://choosealicense.com)
 
 <!-- github -->
 
@@ -154,8 +169,7 @@ Project Link: [https://github.com/thusarasenanayake/passchase](https://github.co
 
 <!-- resources / product -->
 
-[product-screenshot-1]: https://mdg.imgix.net/assets/images/san-juan-mountains.jpg?auto=format&fit=clip&q=40&w=1080
-[product-url]: www.google.com
+[product-screenshot-1]: public/assets/img/screenshot.png
 
 <!-- contact -->
 

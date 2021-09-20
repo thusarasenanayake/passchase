@@ -22,7 +22,6 @@ const setWelcomeMessage = () => {
 const addRec = () => {
 	prompt(addRecordQuestions)
 		.then((result) => {
-			console.log(result);
 			log(chalk.green('\nNew record added'));
 			addRecord(result);
 		})
